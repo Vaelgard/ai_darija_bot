@@ -1,4 +1,4 @@
-/* Chat container settings */
+
 .chat-container {
   background: #f1f1f1;
   border: 1px solid #ddd;
@@ -11,7 +11,7 @@
   gap: 15px;
 }
 
-/* Chat window where messages appear */
+
 .chat-window {
   min-height: 60vh;
   flex: 1;
@@ -26,7 +26,7 @@
   gap: 10px;
 }
 
-/* General message styling */
+
 .chat-message {
   display: inline-block;
   padding: 10px 15px;
@@ -38,7 +38,7 @@
   line-height: 1.5;
 }
 
-/* User message styling */
+
 .chat-message.user {
   background: #4CAF50;
   color: #fff;
@@ -47,7 +47,7 @@
   text-align: right;
 }
 
-/* Bot message styling */
+
 .chat-message.bot {
   background: #f1f1f1;
   color: #333;
@@ -56,7 +56,7 @@
   text-align: left;
 }
 
-/* Ensure chat window scrolls properly */
+
 .chat-window::-webkit-scrollbar {
   width: 6px;
 }

@@ -26,10 +26,10 @@ public class TranslatorResource {
         }
 
         try {
-            // Call the Gemini API to translate from English to Moroccan Darija
+
             String translation = callGeminiAPI(englishText);
 
-            // Return the response with the original and translated text
+
             JSONObject jsonResponse = new JSONObject();
             jsonResponse.put("original", englishText);
             jsonResponse.put("translated", translation);
@@ -50,7 +50,7 @@ public class TranslatorResource {
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setDoOutput(true);
 
-        // Prepare the payload with improved instruction for translating to Moroccan Darija
+
         String payload = "{\n" +
                 "  \"system_instruction\": {\n" +
                 "    \"parts\": [\n" +
@@ -66,10 +66,10 @@ public class TranslatorResource {
                 "  ]\n" +
                 "}";
 
-        // Write payload to the connection
+
         connection.getOutputStream().write(payload.getBytes());
 
-        // Read the API response
+
         Scanner scanner;
         if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
             scanner = new Scanner(connection.getInputStream());
@@ -85,10 +85,10 @@ public class TranslatorResource {
         scanner.close();
         connection.disconnect();
 
-        // Print the raw API response for debugging purposes
+
         System.out.println("API Response: " + response);
 
-        // Parse the JSON response to extract the translated text
+
         JSONObject jsonResponse = new JSONObject(response.toString());
         return jsonResponse.getJSONArray("candidates")
                 .getJSONObject(0) // Get the first candidate

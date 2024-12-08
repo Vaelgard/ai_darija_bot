@@ -11,7 +11,7 @@
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-md-6 chat-container">
-                <h4 class="text-center">AI Chatbot</h4>
+                <h4 class="text-center">AI Darija Bot</h4>
                 <div id="chat-window" class="chat-window">
                     <!-- Chat messages will load here -->
                 </div>
