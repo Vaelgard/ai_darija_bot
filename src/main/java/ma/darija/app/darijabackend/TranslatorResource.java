@@ -54,7 +54,7 @@ public class TranslatorResource {
         String payload = "{\n" +
                 "  \"system_instruction\": {\n" +
                 "    \"parts\": [\n" +
-                "      { \"text\": \"Translate the following text into Moroccan Darija, a colloquial Arabic dialect commonly spoken in Morocco. Provide only the best and most natural translation as a single response.\" }\n" +
+                "      { \"text\": \"Translate the following text into Moroccan Darija, a colloquial Arabic dialect commonly spoken in Morocco. Provide only the best and most natural translation as a single response. Give just the raw answer.\" }\n" +
                 "    ]\n" +
                 "  },\n" +
                 "  \"contents\": [\n" +
