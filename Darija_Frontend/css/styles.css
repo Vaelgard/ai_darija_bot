@@ -1,42 +1,71 @@
+/* Chat container settings */
 .chat-container {
-  background: #f8f9fa;
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
+  background: #f1f1f1;
+  border: 1px solid #ddd;
+  border-radius: 10px;
   padding: 20px;
   max-height: 80vh;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
+/* Chat window where messages appear */
 .chat-window {
-  max-height: 60vh;
   min-height: 60vh;
+  flex: 1;
   overflow-y: auto;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   padding: 10px;
   background: #ffffff;
-  border: 1px solid #dee2e6;
+  border: 1px solid #ddd;
   border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.message {
-  margin-bottom: 10px;
+/* General message styling */
+.chat-message {
+  display: inline-block;
   padding: 10px 15px;
-  border-radius: 15px;
-  width: fit-content;
-  max-width: 80%;
-  clear: both;
+  border-radius: 20px;
+  max-width: 75%;
+  word-wrap: break-word;
+  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
-.message.user {
-  background: #d1e7dd;
+/* User message styling */
+.chat-message.user {
+  background: #4CAF50;
+  color: #fff;
   align-self: flex-end;
+  border-radius: 20px 20px 0 20px;
   text-align: right;
-  margin-left: auto;
 }
 
-.message.bot {
-  background: #f8d7da;
+/* Bot message styling */
+.chat-message.bot {
+  background: #f1f1f1;
+  color: #333;
   align-self: flex-start;
+  border-radius: 20px 20px 20px 0;
   text-align: left;
-  margin-right: auto;
+}
+
+/* Ensure chat window scrolls properly */
+.chat-window::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-window::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.chat-window::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
