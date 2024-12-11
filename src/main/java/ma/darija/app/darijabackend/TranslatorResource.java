@@ -1,8 +1,10 @@
 package ma.darija.app.darijabackend;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Properties;
 import java.util.Scanner;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.*;
@@ -11,8 +13,10 @@ import org.json.JSONObject;
 @Path("/translator")
 public class TranslatorResource {
 
-    private static final String GEMINI_API_KEY = "AIzaSyAhGhOXiwtiNRjrLlf6h3wQ8j38j4iG1PE"; // Replace with your actual key
-    private static final String GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=";
+    private static final Properties CONFIG = loadConfig();
+
+    private static final String GEMINI_API_KEY = CONFIG.getProperty("GEMINI_API_KEY");
+    private static final String GEMINI_ENDPOINT = CONFIG.getProperty("GEMINI_ENDPOINT");
 
     @POST
     @Path("/translate")
@@ -26,9 +30,7 @@ public class TranslatorResource {
         }
 
         try {
-
             String translation = callGeminiAPI(englishText);
-
 
             JSONObject jsonResponse = new JSONObject();
             jsonResponse.put("original", englishText);
@@ -43,13 +45,11 @@ public class TranslatorResource {
     }
 
     private String callGeminiAPI(String text) throws IOException {
-        // Construct the API request URL
         URL url = new URL(GEMINI_ENDPOINT + GEMINI_API_KEY);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Content-Type", "application/json");
         connection.setDoOutput(true);
-
 
         String payload = "{\n" +
                 "  \"system_instruction\": {\n" +
@@ -66,9 +66,7 @@ public class TranslatorResource {
                 "  ]\n" +
                 "}";
 
-
         connection.getOutputStream().write(payload.getBytes());
-
 
         Scanner scanner;
         if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
@@ -85,16 +83,28 @@ public class TranslatorResource {
         scanner.close();
         connection.disconnect();
 
-
         System.out.println("API Response: " + response);
-
 
         JSONObject jsonResponse = new JSONObject(response.toString());
         return jsonResponse.getJSONArray("candidates")
-                .getJSONObject(0) // Get the first candidate
+                .getJSONObject(0)
                 .getJSONObject("content")
                 .getJSONArray("parts")
                 .getJSONObject(0)
                 .getString("text");
+    }
+
+    private static Properties loadConfig() {
+        Properties properties = new Properties();
+        try (InputStream input = TranslatorResource.class.getClassLoader().getResourceAsStream("config.properties")) {
+            if (input == null) {
+                throw new IOException("Configuration file not found.");
+            }
+            properties.load(input);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to load configuration file.", e);
+        }
+        return properties;
     }
 }
